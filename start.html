@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title>Card Example</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .card {
+            width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            overflow: hidden;
+        }
+        .card-header {
+            background: url('https://placehold.co/300x100') no-repeat center center;
+            background-size: cover;
+            padding: 16px;
+            color: white;
+            position: relative;
+        }
+        .card-header h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .card-header p {
+            margin: 4px 0 0;
+            font-size: 14px;
+        }
+        .card-header .avatar {
+            position: absolute;
+            bottom: -20px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            background-color: #673ab7;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .card-content {
+            padding: 40px 16px 16px;
+        }
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 16px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .card-footer i {
+            font-size: 20px;
+            color: #757575;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            <h2>Quran Translation 3</h2>
+            <p>BS CE 22</p>
+            <p>Muhammad Akhlaq</p>
+            <div class="avatar">M</div>
+        </div>
+        <div class="card-content"></div>
+        <div class="card-footer">
+            <i class="fas fa-camera"></i>
+            <i class="fas fa-folder"></i>
+        </div>
+    </div>
+</body>
+</html>

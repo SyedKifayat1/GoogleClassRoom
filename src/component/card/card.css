@@ -1,0 +1,57 @@
+.card {
+    width: 340px;
+    border-radius: 2px solid black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    overflow: hidden;
+    /* height: 340px; */
+    margin: 30px;
+    border-radius: 5px;
+}
+.card-header {
+    /* background: url('https://placehold.co/300x100') no-repeat center center; */
+    background-color: #8c80a0;
+    background-size: cover;
+    border-radius: 5px;
+    width: 340px;
+    padding: 16px;
+    color: #fff;
+    position: relative;
+}
+.card-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+.card-header p {
+    margin: 4px 0 0;
+    font-size: 14px;
+}
+.card-header .avatar {
+    position: absolute;
+    bottom: -20px;
+    right: 50px;
+    width: 60px;
+    height: 60px;
+    background-color: #673ab7;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+.card-content {
+    padding: 130px 16px 16px;
+}
+.card-footer {
+    display: flex;
+    justify-content: end;
+    padding: 20px 16px;
+    border-top: 1px solid #e0e0e0;
+    gap: 20px;
+}
+.card-footer i {
+    font-size: 20px;
+    color: #757575;
+}
