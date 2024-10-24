@@ -1,8 +1,42 @@
-import React, { useState, useEffect } from 'react';
 
+
+import React, { useState, useEffect } from 'react';
 import './App.css'; // Assuming you have a custom CSS for additional styles
 import './index.css'; // Tailwind CSS
 import Header from './component/header';
+
+// Sample class data for cards
+const classData = [
+  {
+    initial: "M",
+    title: "Quran Translation 3",
+    subtitle1: "BS CE 22",
+    subtitle2: "Muhammad Akhlaq",
+    bgColor: "bg-gray-700",
+  },
+  {
+    initial: "M",
+    title: "Pak Studies and Ideology",
+    subtitle1: "BSCE2022 & BSSE2024",
+    subtitle2: "Maleeha Sattar",
+    bgColor: "bg-purple-500",
+  },
+  {
+    initial: "H",
+    title: "Database Management Sys",
+    subtitle1: "CE-22",
+    subtitle2: "Hamza Shaukat",
+    bgColor: "bg-blue-600",
+  },
+  {
+    initial: "Q",
+    title: "Entrepreneurship CE ITU",
+    subtitle1: "A",
+    subtitle2: "Qalab e Abbas",
+    bgColor: "bg-green-600",
+  },
+  // Add more class data as needed
+];
 
 const Sidebar = ({ isVisible }) => {
   const [isEnrolledDropdownOpen, setEnrolledDropdownOpen] = useState(false);
@@ -29,12 +63,9 @@ const Sidebar = ({ isVisible }) => {
           {isEnrolledDropdownOpen && (
             <ul className="">
               <NavItem icon="fas fa-tasks" label="To-do" />
-              <ClassItem initial="Q" label="Quran Translation 3" subtitle1="CE 22" bgColor="bg-black" />
-              <ClassItem initial="P" label="Pak Studies and Ideology" subtitle1="CE 22" bgColor="bg-purple-600" />
-              <ClassItem initial="D" label="Database Management Sys" subtitle1="CE 22" bgColor="bg-blue-600" />
-              <ClassItem initial="E" label="Entrepreneurship CE ITU" subtitle1="CE 22" bgColor="bg-green-600" />
-              <ClassItem initial="D" label="Data Based Management S" subtitle1="CE 22" bgColor="bg-purple-600" />
-              <ClassItem initial="D" label="DSP (Lab) Fall 2024" subtitle1="CE 22" bgColor="bg-red-600" />
+              {classData.map((classItem, index) => (
+                <ClassItem key={index} {...classItem} />
+              ))}
             </ul>
           )}
         </ul>
@@ -59,24 +90,24 @@ const NavItem = ({ icon, label }) => (
 );
 
 // Class Item Component
-const ClassItem = ({ initial, label, bgColor, subtitle1 }) => (
+const ClassItem = ({ initial, title, subtitle1, bgColor }) => (
   <li className="flex items-center p-4 text-gray-700 hover:bg-gray-200">
     <div className={`w-6 h-6 ${bgColor} text-white flex items-center justify-center rounded-full mr-4`}>
       {initial}
     </div>
     
     <div>
-      <span>{label.length > 22 ? `${label.slice(0, 15)}...` : label}</span>
+      <span>{title.length > 22 ? `${title.slice(0, 15)}...` : title}</span>
       <p className="text-sm">{subtitle1}</p>
     </div>
-
   </li>
 );
+
 
 // Card Component
 const Card = ({ bgColor, initial, title, subtitle1, subtitle2 }) => {
   return (
-    <div className={`max-w-xs rounded-lg shadow-md bg-white overflow-hidden w-[340px]`}>
+    <div className={`max-w-xs w-full rounded-lg shadow-md bg-white overflow-hidden`}>
       {/* Card Header */}
       <div className={`bg-cover bg-center h-24 flex flex-col justify-end p-4 text-white relative ${bgColor}`}>
         <div className="absolute top-4 right-4">
@@ -103,128 +134,29 @@ const Card = ({ bgColor, initial, title, subtitle1, subtitle2 }) => {
 };
 
 
+
 // Main Content Component
 const MainContent = () => (
   <div className="flex-1 p-6 main-content">
-
-    <div className="flex flex-wrap justify-start gap-5">
-      <div className="max-w-[340px] w-full">
-        <Card
-          bgColor="bg-gray-700"
-          initial="M"
-          title="Quran Translation 3"
-          subtitle1="BS CE 22"
-          subtitle2="Muhammad Akhlaq"
-        />
-      </div>
-      <div className="max-w-[340px] w-full">
-        <Card
-          bgColor="bg-purple-500"
-          initial="M"
-          title="Pak Studies and Ideology"
-          subtitle1="BSCE2022 & BSSE2024"
-          subtitle2="Maleeha Sattar"
-        />
-      </div>
-      <div className="max-w-[340px] w-full">
-        <Card
-          bgColor="bg-purple-400"
-          initial="M"
-          title="Pak Studies and Ideology"
-          subtitle1="BSCE2022 & BSSE2024"
-          subtitle2="Maleeha Sattar"
-        />
-      </div>
-      <div className="max-w-[340px] w-full">
-        <Card
-          bgColor="bg-purple-600"
-          initial="M"
-          title="Pak Studies and Ideology"
-          subtitle1="BSCE2022 & BSSE2024"
-          subtitle2="Maleeha Sattar"
-        />
-      </div>
-      <div className="max-w-[340px] w-full">
-        <Card
-          bgColor="bg-purple-600"
-          initial="M"
-          title="Pak Studies and Ideology"
-          subtitle1="BSCE2022 & BSSE2024"
-          subtitle2="Maleeha Sattar"
-        />
-      </div>
-      <div className="max-w-[340px] w-full">
-        <Card
-          bgColor="bg-purple-600"
-          initial="M"
-          title="Pak Studies and Ideology"
-          subtitle1="BSCE2022 & BSSE2024"
-          subtitle2="Maleeha Sattar"
-        />
-      </div>
-      <div className="max-w-[340px] w-full">
-        <Card
-          bgColor="bg-blue-600"
-          initial="H"
-          title="Database Management Sys"
-          subtitle1="CE-22"
-          subtitle2="Hamza Shaukat"
-        />
-      </div>
-      <div className="max-w-[340px] w-full">
-        <Card
-          bgColor="bg-blue-600"
-          initial="H"
-          title="Database Management Sys"
-          subtitle1="CE-22"
-          subtitle2="Hamza Shaukat"
-        />
-      </div>
-      <div className="max-w-[340px] w-full">
-        <Card
-          bgColor="bg-blue-600"
-          initial="H"
-          title="Database Management Sys"
-          subtitle1="CE-22"
-          subtitle2="Hamza Shaukat"
-        />
-      </div>
-      <div className="max-w-[340px] w-full">
-        <Card
-          bgColor="bg-blue-600"
-          initial="H"
-          title="Database Management Sys"
-          subtitle1="CE-22"
-          subtitle2="Hamza Shaukat"
-        />
-      </div>
-      <div className="max-w-[340px] w-full">
-        <Card
-          bgColor="bg-green-600"
-          initial="Q"
-          title="Entrepreneurship CE ITU"
-          subtitle1="A"
-          subtitle2="Qalab e Abbas"
-        />
-      </div>
+    <div className="flex flex-wrap sm:justify-start justify-center gap-5">
+      {classData.map((classItem, index) => (
+        <div className="max-w-[340px] w-full" key={index}>
+          <Card {...classItem} />
+        </div>
+      ))}
     </div>
-
-
   </div>
 );
 
+
 // Main App Component
 const App = () => {
-
   const [isSidebarVisible, setSidebarVisible] = useState(true);
   const [isSmallScreen, setSmallScreen] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
-  };
-  const toggleSmallScreen = () => {
-    setSmallScreen(!isSmallScreen);
-  };
+  }
 
   useEffect(() => {
     // Check screen width on component mount
@@ -255,10 +187,9 @@ const App = () => {
       <Header toggleSidebar={toggleSidebar} />
       <div className="flex">
         <Sidebar isVisible={isSidebarVisible} />
-        <div className={`flex-1 transition-all duration-300 mt-16 ${!isSmallScreen ? isSidebarVisible ? 'ml-64' : 'ml-0':'ml-0'} relative`}>
+        <div className={`flex-1 transition-all duration-300 mt-16 ${!isSmallScreen ? (isSidebarVisible ? 'ml-64' : 'ml-0') : 'ml-0'} relative`}>
           <MainContent />
         </div>
-
       </div>
     </>
   );
