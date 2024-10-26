@@ -36,3 +36,38 @@
     transform: rotate(360deg);
   }
 }
+
+
+.toggle-checkbox {
+  appearance: none; 
+  width: 40px; 
+  height: 20px; 
+  background-color: #ccc; 
+  border-radius: 9999px; 
+  position: relative; 
+  outline: none; 
+  cursor: pointer; 
+  transition: background-color 0.2s; 
+}
+
+.toggle-checkbox:checked {
+  background-color: #3b82f6; 
+}
+
+.toggle-checkbox:checked::before {
+  transform: translateX(20px); 
+}
+
+.toggle-checkbox::before {
+  content: ''; 
+  position: absolute; 
+  top: 2px; 
+  left: 2px; 
+  width: 16px; 
+  height: 16px; 
+  background-color: white; 
+  border-radius: 9999px; 
+  transition: transform 0.2s; 
+}
+
+/* Optional: Add some margin to keep a gap between text and toggle */
