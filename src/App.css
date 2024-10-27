@@ -71,3 +71,15 @@
 }
 
 /* Optional: Add some margin to keep a gap between text and toggle */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 2s ease-in-out;
+}

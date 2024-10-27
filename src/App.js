@@ -5,6 +5,7 @@ import './index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faCamera, faFolder } from '@fortawesome/free-solid-svg-icons';
 import Header from './component/header';
+import { format, addDays, subWeeks, addWeeks, startOfWeek, isToday } from 'date-fns';
 
 // Sample data for class items
 const classData = [
@@ -91,7 +92,7 @@ const ClassItem = ({ initial, title, subtitle1, bgColor, onSelectHeading }) => (
 );
 
 const Card = ({ bgColor, initial, title, subtitle1, subtitle2, onSelectHeading }) => (
-  <div className="max-w-xs w-full rounded-lg shadow-md bg-white overflow-hidden">
+  <div className="max-w-xs w-full rounded-lg border hover:shadow-xl bg-white overflow-hidden">
     <div className={`bg-cover bg-center h-24 flex flex-col justify-end p-4 text-white relative ${bgColor}`}>
       <div className="absolute top-4 right-4">
         <FontAwesomeIcon icon={faEllipsisV} />
@@ -106,7 +107,13 @@ const Card = ({ bgColor, initial, title, subtitle1, subtitle2, onSelectHeading }
         {initial}
       </div>
     </div>
-    <div className="p-6 h-[8rem]"></div>
+    <div className="p-6 min-h-[8rem]">
+      <div className="content pb-1">
+        <p className="text-sm opacity-80">Due Thursday</p>
+        <Link to={`/assignment-details/${title}`} onClick={() => onSelectHeading(title)}><h3 className="text-sm font-bold mt-1">Assignment</h3></Link>
+      </div>
+
+    </div>
     <div className="flex justify-end gap-2 p-2 border-t border-gray-200">
       <FontAwesomeIcon icon={faCamera} className="text-gray-500 text-2xl" />
       <FontAwesomeIcon icon={faFolder} className="text-gray-500 text-2xl" />
@@ -169,6 +176,7 @@ const App = () => {
             <Route path="/archived-classes" element={<ArchivedClasses />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/subject-details/:title/*" element={<SubjectDetails />} />
+            <Route path="/assignment-details/:title/*" element={<AssignmentDetails />} />
           </Routes>
         </div>
       </div>
@@ -432,69 +440,92 @@ const People = () => {
   );
 }
 
-// Sample pages for routing
+
 const Calendar = () => {
+  const [currentWeek, setCurrentWeek] = useState(startOfWeek(new Date(), { weekStartsOn: 0 })); // Starting Sunday
+
+  const events = {
+    '2024-10-21': [
+      {
+        title: 'Assignment-1: The Hereafter (Akhirah) According to the Quran',
+        time: '11:59 PM',
+      },
+    ],
+    '2024-10-23': [{ title: 'Project Due', time: '5:00 PM' }],
+    // Add more dates and events as needed
+  };
+
+  const handlePrevWeek = () => setCurrentWeek(subWeeks(currentWeek, 1));
+  const handleNextWeek = () => setCurrentWeek(addWeeks(currentWeek, 1));
+
+  const renderWeekDays = () => {
+    return Array.from({ length: 7 }).map((_, index) => {
+      const date = addDays(currentWeek, index);
+      const formattedDate = format(date, 'yyyy-MM-dd');
+      const day = format(date, 'EEE');
+      const dayNum = format(date, 'd');
+      const dayEvents = events[formattedDate];
+
+      const isCurrentDate = isToday(date);
+
+      return (
+        <div key={index} className="text-center border-r border-gray-300 p-4">
+          <div className="text-gray-500">{day}</div>
+          <div
+            className={`text-2xl ${isCurrentDate ? 'bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center mx-auto' : ''}`}
+          >
+            {dayNum}
+          </div>
+          {dayEvents && (
+            <div className="bg-black text-white p-2 mt-2 rounded">
+              {dayEvents.map((event, idx) => (
+                <div key={idx}>
+                  <div>{event.title}</div>
+                  <div>{event.time}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    });
+  };
+
   return (
-    <div className="p-4 border border-gray-300 rounded-lg m-4">
+    <div className="p-4 border-gray-300 rounded-lg m-4">
       <div className="flex justify-between items-center mb-4">
         <div className="relative w-64">
           <select className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-6 py-3 pr-10 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
             <option>All classes</option>
           </select>
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
+            <svg
+              className="fill-current h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+            </svg>
           </div>
         </div>
         <div className="flex items-center justify-center flex-grow">
-          <button className="text-gray-600 hover:text-gray-800 mx-2">
+          <button onClick={handlePrevWeek} className="text-gray-600 hover:text-gray-800 mx-2">
             <i className="fas fa-chevron-left"></i>
           </button>
-          <span className="text-gray-600">Oct 20 - Oct 26, 2024</span>
-          <button className="text-gray-600 hover:text-gray-800 mx-2">
+          <span className="text-gray-600">
+            {format(currentWeek, 'MMM d')} - {format(addDays(currentWeek, 6), 'MMM d, yyyy')}
+          </span>
+          <button onClick={handleNextWeek} className="text-gray-600 hover:text-gray-800 mx-2">
             <i className="fas fa-chevron-right"></i>
           </button>
         </div>
       </div>
       <div className="grid grid-cols-7 border border-gray-300 rounded-lg">
-        <div className="text-center border-r border-gray-300 p-4">
-          <div className="text-gray-500">Sun</div>
-          <div className="text-2xl">20</div>
-        </div>
-        <div className="text-center border-r border-gray-300 p-4">
-          <div className="text-gray-500">Mon</div>
-          <div className="text-2xl">21</div>
-          <div className="bg-black text-white p-2 mt-2 rounded">
-            <div>Assignment:</div>
-            <div>Assignment-1: The Hereafter (Akhirah) According to the Quran</div>
-            <div>11:59 PM</div>
-          </div>
-        </div>
-        <div className="text-center border-r border-gray-300 p-4">
-          <div className="text-gray-500">Tue</div>
-          <div className="text-2xl">22</div>
-        </div>
-        <div className="text-center border-r border-gray-300 p-4">
-          <div className="text-gray-500">Wed</div>
-          <div className="text-2xl">23</div>
-          <div className="text-yellow-500">|</div>
-        </div>
-        <div className="text-center border-r border-gray-300 p-4">
-          <div className="text-gray-500">Thu</div>
-          <div className="text-2xl">24</div>
-        </div>
-        <div className="text-center border-r border-gray-300 p-4">
-          <div className="text-gray-500">Fri</div>
-          <div className="text-2xl">25</div>
-        </div>
-        <div className="text-center p-4">
-          <div className="text-gray-500">Sat</div>
-          <div className="text-2xl bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center mx-auto">26</div>
-        </div>
+        {renderWeekDays()}
       </div>
     </div>
   );
 };
-
 
 const Section = ({ title, count, children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -817,12 +848,12 @@ const Settings = () => {
                       {notification.initial}
                     </div>
                     <div>
-                      <p className="font-medium">{notification.title.slice(0,20)}...</p>
+                      <p className="font-medium">{notification.title.slice(0, 20)}...</p>
                       <p className="text-gray-500">{notification.details}</p>
                     </div>
                   </div>
                   <div>
-                    <ToggleSwitch/>
+                    <ToggleSwitch />
                   </div>
                 </div>
               ))}
@@ -839,7 +870,167 @@ const Settings = () => {
 
 }
 
-const ArchivedClasses = () => <div>Archived Classes Page</div>;
+
+
+const AssignmentDetails = () => {
+  const handleFileUpload = (event) => {
+    const files = event.target.files;
+    console.log(files);
+    // Handle file upload logic here
+  };
+
+  const [showCommentBox, setShowCommentBox] = useState(false);
+
+  const toggleCommentBox = () => {
+    setShowCommentBox(!showCommentBox);
+  };
+
+  const randomAvatarUrl = `https://avatars.dicebear.com/api/initials/${Math.random()
+    .toString(36)
+    .substring(7)}.svg`;
+
+  return (
+    <div className="flex flex-col lg:flex-row justify-between gap-8 p-4 ">
+      <div className="w-full lg:w-3/4">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-4">
+            <div className="bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
+              <i className="fas fa-clipboard-list text-2xl"></i>
+            </div>
+            <h1 className="text-2xl font-semibold">Assignment no 2</h1>
+          </div>
+          <button
+            className="text-gray-500 hover:text-gray-700"
+            aria-label="More options"
+          >
+            <i className="fas fa-ellipsis-v"></i>
+          </button>
+        </div>
+        <div className="ml-4 lg:ml-14 mb-4">
+          <p className="text-gray-600">Ayesha Saeed • Oct 21 (Edited Oct 21)</p>
+          <div className="flex justify-between items-center">
+            <p className="text-gray-600">50 points</p>
+            <p className="text-gray-600">Due Oct 31</p>
+          </div>
+        </div>
+        <div className="ml-4 lg:ml-14 mb-6">
+          <ul className="list-disc list-inside text-gray-700 space-y-2">
+            <li>The assignment is worth 50 marks.</li>
+            <li>Contact the instructor or TA with any questions.</li>
+            <li>Use both sides of the sheet to save paper.</li>
+            <li>Ensure legible answers for proper grading.</li>
+            <li>Submit the assignment on time in class or at the office.</li>
+          </ul>
+        </div>
+        <div className="ml-4 lg:ml-14 mb-6">
+          <a href="#" className="text-blue-500 underline flex items-center">
+            <i className="fas fa-file-pdf text-red-500 mr-2"></i>
+            View Assignment no 2.pdf
+          </a>
+        </div>
+       
+        <div className="border-t pt-4 ml-4 lg:ml-14">
+          <h2 className="text-lg font-semibold mb-2 cursor-pointer" onClick={toggleCommentBox}>
+            <i className="fas fa-comments text-gray-600 mr-2"></i>
+            Class comments
+          </h2>
+
+          {showCommentBox && (
+            <div className="mt-4 flex items-center">
+              {/* User avatar */}
+              <img
+                src={randomAvatarUrl} // Replace with actual user avatar URL
+                alt="User avatar"
+                className="w-10 h-10 rounded-full mr-3"
+              />
+
+              {/* Comment box */}
+              <div className="flex-1">
+                <div className="flex items-center border rounded-lg p-3 shadow-sm">
+                  <input
+                    type="text"
+                    placeholder="Add class comment..."
+                    className="flex-1 px-3 py-2 outline-none text-gray-700"
+                  />
+
+                  {/* Formatting icons */}
+                  <div className="flex space-x-2 ml-3">
+                    <button className="text-gray-600 hover:text-black">
+                      <b>B</b>
+                    </button>
+                    <button className="text-gray-600 hover:text-black italic">
+                      I
+                    </button>
+                    <button className="text-gray-600 hover:text-black underline">
+                      U
+                    </button>
+                    <button className="text-gray-600 hover:text-black">
+                      <i className="fas fa-list-ul"></i>
+                    </button>
+                    <button className="text-gray-600 hover:text-black">
+                      <i className="fas fa-strikethrough"></i>
+                    </button>
+                  </div>
+
+                  {/* Send button */}
+                  <button className="ml-3 text-gray-600 hover:text-black">
+                    <i className="fas fa-paper-plane"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="w-full lg:w-1/4 flex flex-col items-center lg:items-end">
+        <div className="border border-gray-300 p-6 rounded-lg mb-4 w-full">
+          <div className="flex items-center justify-between w-full mb-4">
+            <span className="text-gray-700 font-semibold">Your work</span>
+            <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-sm">Assigned</span>
+          </div>
+          <div className="flex flex-col gap-4 w-full mb-4">
+            <label
+              className="bg-gray-200 text-gray-700 px-4 py-3 rounded shadow-md hover:bg-gray-300 transition duration-300 w-full lg:w-auto text-center cursor-pointer flex-1"
+              htmlFor="file-upload"
+            >
+              + Add or create
+              <input
+                type="file"
+                id="file-upload"
+                className="hidden"
+                onChange={handleFileUpload}
+                aria-label="Upload assignment file"
+              />
+            </label>
+
+            <button
+              className="bg-blue-500 text-white px-4 py-3 rounded shadow-md hover:bg-blue-600 transition duration-300 w-full lg:w-auto focus:outline-none focus:ring-2 focus:ring-blue-400 flex-1"
+            >
+              Mark as done
+            </button>
+          </div>
+
+        </div>
+        <div className="border border-gray-300 p-6 rounded-lg mb-4 w-full">
+          <h2 className="text-lg font-semibold mb-2">Private comments</h2>
+          <a href="#" className="text-blue-500 underline">Add comment to Ayesha Saeed</a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
+const ArchivedClasses = () => {
+  return (
+    <div className="flex items-center justify-center h-screen text-gray-800 animate-fadeIn">
+      <div className="text-center">
+        <h1 className="text-6xl mb-4">🚧</h1>
+        <p className="text-2xl">Archived Classes Page is under development</p>
+      </div>
+    </div>
+  );
+};
 
 export default App;
-
