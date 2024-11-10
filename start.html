@@ -1,82 +1,124 @@
+<!DOCTYPE html>
 <html>
-<head>
-    <title>Card Example</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
+ <head>
+  <title>
+   Success Stories
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 4rem;
+        }
+        .cards {
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
+            gap: 1.2rem; /* Add gap between cards */
+            flex-wrap: wrap; /* Allow cards to wrap to the next line on smaller screens */
         }
         .card {
-            width: 300px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 20%;
+            padding: 20px;
             background-color: #fff;
-            overflow: hidden;
-        }
-        .card-header {
-            background: url('https://placehold.co/300x100') no-repeat center center;
-            background-size: cover;
-            padding: 16px;
-            color: white;
-            position: relative;
-        }
-        .card-header h2 {
-            margin: 0;
-            font-size: 18px;
-        }
-        .card-header p {
-            margin: 4px 0 0;
-            font-size: 14px;
-        }
-        .card-header .avatar {
-            position: absolute;
-            bottom: -20px;
-            right: 16px;
-            width: 40px;
-            height: 40px;
-            background-color: #673ab7;
-            color: white;
-            border-radius: 50%;
+            border: 2px solid #000;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            position: relative;
+            margin-bottom: 3rem; /* Add margin to separate rows on smaller screens */
+        }
+        .card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            position: absolute;
+            top: -50px; /* Move half of the image height up */
+        }
+        .card p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-top: 60px; /* Add margin to avoid overlap with image */
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .card .name {
             font-size: 18px;
             font-weight: bold;
         }
-        .card-content {
-            padding: 40px 16px 16px;
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #c00;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+            margin-top: 40px;
         }
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 16px;
-            border-top: 1px solid #e0e0e0;
+        @media (max-width: 768px) {
+            .card {
+                width: 45%; /* Adjust card width for tablets */
+            }
         }
-        .card-footer i {
-            font-size: 20px;
-            color: #757575;
+        @media (max-width: 480px) {
+            .card {
+                width: 100%; /* Adjust card width for mobile devices */
+            }
         }
-    </style>
-</head>
-<body>
+  </style>
+ </head>
+ <body>
+  <div class="container">
+   <h1>
+    Success Stories
+   </h1>
+   <div class="cards">
     <div class="card">
-        <div class="card-header">
-            <h2>Quran Translation 3</h2>
-            <p>BS CE 22</p>
-            <p>Muhammad Akhlaq</p>
-            <div class="avatar">M</div>
-        </div>
-        <div class="card-content"></div>
-        <div class="card-footer">
-            <i class="fas fa-camera"></i>
-            <i class="fas fa-folder"></i>
-        </div>
+     <img alt="Illustration of a landscape with hills and a cloudy sky" height="100" src="https://storage.googleapis.com/a1aa/image/hSLDQG689OpqLB93DGQGJgWBmXze2h9NZaBQvWSBVifYl3tTA.jpg" width="100"/>
+     <p>
+      It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem
+     </p>
+     <div class="name">
+      John Doe
+     </div>
     </div>
-</body>
+    <div class="card">
+     <img alt="Illustration of a landscape with hills and a cloudy sky" height="100" src="https://storage.googleapis.com/a1aa/image/hSLDQG689OpqLB93DGQGJgWBmXze2h9NZaBQvWSBVifYl3tTA.jpg" width="100"/>
+     <p>
+      It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.
+     </p>
+     <div class="name">
+      John Doe
+     </div>
+    </div>
+    <div class="card">
+     <img alt="Illustration of a landscape with hills and a cloudy sky" height="100" src="https://storage.googleapis.com/a1aa/image/hSLDQG689OpqLB93DGQGJgWBmXze2h9NZaBQvWSBVifYl3tTA.jpg" width="100"/>
+     <p>
+      It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem
+     </p>
+     <div class="name">
+      John Doe
+     </div>
+    </div>
+   </div>
+   <a class="button" href="#">
+    Read All Success Stories
+   </a>
+  </div>
+ </body>
 </html>
