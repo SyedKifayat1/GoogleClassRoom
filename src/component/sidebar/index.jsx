@@ -14,7 +14,7 @@ const Sidebar = ({ isVisible, onSelectHeading,classData }) => {
     return (
       <div
         className={`fixed top-10 mt-6 pb-5 left-0 h-[92vh] w-64 bg-white shadow-md sidebar transition-transform transform 
-          ${isVisible ? 'translate-x-0' : '-translate-x-full'} z-50 overflow-y-auto`}
+          ${isVisible ? 'translate-x-0' : '-translate-x-full'} z-40 overflow-y-auto`}
       >
         <nav className="mt-4">
           <ul>
