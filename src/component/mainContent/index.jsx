@@ -6,7 +6,7 @@ import Card from './card'
       <div className="flex flex-wrap sm:justify-start justify-center gap-5">
         {classData.map((classItem, index) => (
           <div className="max-w-[340px] w-full" key={index}>
-            <Card {...classItem} initial={classItem.subtitle2.charAt(0)} onSelectHeading={onSelectHeading} />
+            <Card {...classItem} initial={classItem.teacher.charAt(0)} onSelectHeading={onSelectHeading} />
           </div>
         ))}
       </div>

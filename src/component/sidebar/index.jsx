@@ -32,7 +32,7 @@ const Sidebar = ({ isVisible, onSelectHeading,classData }) => {
                 {classData.map((classItem, index) => (
                   <ClassItem
                     key={index}
-                    initial={classItem.subtitle2.charAt(0)} // Set initial dynamically
+                    initial={classItem.teacher.charAt(0)} // Set initial dynamically
                     {...classItem}
                     onSelectHeading={onSelectHeading}
                   />

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const JoinClass = ({ toggleModal }) => {
+const JoinClass = ({ user, toggleModal }) => {
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 w-auto max-w-lg">
       <h2 className="text-xl font-semibold mb-4">Join class</h2>
@@ -9,15 +9,14 @@ const JoinClass = ({ toggleModal }) => {
       <div className="flex sm:flex-row flex-col items-start sm:items-center mb-4">
         <div className="flex items-start sm:items-center mb-4">
           <img
-            alt="Profile picture of the user"
+            alt={user.altText}
             className="w-10 h-10 rounded-full mr-3"
-            src="https://storage.googleapis.com/a1aa/image/ei72uff8bLHBhIAOvRr3ltT1I0KVOmHCbPefeMfWX5et56pvTA.jpg"
+            src={user.avatar}
           />
           <div>
-
             <p className="text-sm">You're currently signed in as</p>
-            <p className="font-semibold">Syed Kifayat Ur Rahman</p>
-            <p className="text-sm text-gray-500">bsce22026@itu.edu.pk</p>
+            <p className="font-semibold">{user.name}</p>
+            <p className="text-sm text-gray-500">{user.email}</p>
           </div>
         </div>
         <button className="sm:ml-auto ml-4 text-blue-600 font-semibold">Switch account</button>
